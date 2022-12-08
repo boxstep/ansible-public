@@ -1,0 +1,34 @@
+
+- name: Copy files and install BDF
+  hosts: all
+  tasks:
+  - name: Copy BDF to server1
+    copy:
+      src: /var/packages/lnx-bdf/installer.xml
+      dest: /root
+      mode: 0722
+  - name: Copy BDF to server2
+    copy:
+      src: /var/packages/lnx-bdf/installer
+      dest: /root
+      mode: 0722
+  - name: Copy BDF to server3
+    copy:
+      src: /var/packages/lnx-bdf/bdconfigure
+      dest: /root
+      mode: 0722
+  - name: Copy BDF to server4
+    copy:
+      src: /var/packages/lnx-bdf/linux-amd64
+      dest: /root
+      mode: 0722
+  - name: run BDF installer
+    command: sh ./installer
+  - name: CLEAN UP AFTER INSTALLER BELOW
+    command: rm bdconfigure
+  - name: delete file 2
+    command: rm installer
+  - name: delete file 3
+    command: rm installer.xml
+  - name: delete folder
+    command: rm -rf linux-amd64
