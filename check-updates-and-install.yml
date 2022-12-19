@@ -14,16 +14,3 @@
     - debug:
         msg: "Restart required"
       when:  file_reboot.stat.exists
-
-#Check for updates and install
-    - name: Install updates
-      shell: apt-get update -y
-      register: install_var
-    - debug:
-        var: install_var.stdout_lines
-
-    - name: Upgrade updates
-      shell: apt-get upgrade -y
-      register: upgrade_var
-    - debug:
-       var: upgrade_var.stdout_lines
