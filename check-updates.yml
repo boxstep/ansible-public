@@ -2,7 +2,7 @@
   hosts: all
   tasks:
     - name: Check for available updates
-      shell: cat /var/lib/update-notifier/updates-available | grep 'updates can be'
+      shell: cat /var/lib/update-notifier/updates-available | grep 'can be'
       register: var_updates
     - debug:
         var: var_updates.stdout_lines
