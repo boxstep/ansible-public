@@ -1,0 +1,19 @@
+- hosts: BLS_EE
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: Generate locals
+      raw: export LC_ALL="de_DE.UTF-8"; locale-gen de_DE.UTF-8
+      changed_when: false
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apt -y update && apt -y install python-minimal)
+      changed_when: false
+    - setup: # gather facts
+- hosts: alpine
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apk --update add python)
+      changed_when: false
+    - setup: # gather facts
