@@ -1,0 +1,24 @@
+---
+#- import_playbook: bootstrap-python.yml
+
+- hosts: all
+  vars:
+    users:
+      - ansible
+      - dev
+  tasks:
+    - name: 'Create users with corresponding groups'
+      user:
+        name: "{{ item }}"
+        groups: "users"
+      with_items: "{{ users }}"
+
+    - name: 'Add corresponding authorized_keys to each user'
+      authorized_key:
+        user: "{{ item }}"
+        state: present
+        # Public key file has to be named according to the user,
+        # e.g. 'ansible.ssh.pub'
+        key: "{{ lookup('file', 'public/' + item + '.ssh.pub') }}"
+      with_items: "{{ users }}"
+
